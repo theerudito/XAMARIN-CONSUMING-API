@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="API.View.JPH_Page">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding JPH_Models}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame
+                                BackgroundColor="Black"
+                                CornerRadius="20"
+                                Margin="10"
+                                >
+                                <StackLayout>
+                                    <Label
+                                        Text="{Binding id}"
+                                        TextColor="White"
+                                        />
+                                    <Label
+                                        Text="{Binding name}"
+                                        TextColor="White"
+                                        />
+                                    <Label
+                                        Text="{Binding username}"
+                                        TextColor="White"
+                                        />
+                                    <Label
+                                        Text="{Binding email}"
+                                        TextColor="White"
+                                        MaxLines="1"
+                                        />
+                                    <Label
+                                        Text="{Binding phone}"
+                                        TextColor="White"
+                                        MaxLines="1"
+                                        />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Span="2"
+                        Orientation="Vertical"
+                        />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

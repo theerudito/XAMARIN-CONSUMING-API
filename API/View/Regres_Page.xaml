@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="API.View.Regres_Page">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding Reqres_Models}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame
+                                BackgroundColor="Black"
+                                CornerRadius="20"
+                                Margin="10"
+                                >
+                                <StackLayout>
+                                    <Image Source="{Binding avatar}"/>
+                                    <Label
+                                        Text="{Binding id}"
+                                        TextColor="White"
+                                        />
+                                    <Label
+                                        Text="{Binding first_name}"
+                                        TextColor="White"
+                                        />
+                                    <Label
+                                        Text="{Binding last_name}"
+                                        TextColor="White"
+                                        />
+                                    <Label
+                                        Text="{Binding email}"
+                                        TextColor="White"
+                                        MaxLines="1"
+                                        />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Span="2"
+                        Orientation="Vertical"
+                        />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+            <StackLayout Margin="0,-100,0,0">
+                <Grid
+                    RowDefinitions="*"
+                    ColumnDefinitions="*,100,100,*"
+                    >
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        CornerRadius="20"
+                        TextColor="White"
+                        BackgroundColor="#0099ff"
+                        Command="{Binding btnPreviewCommand}"
+                        Text="PREVIEW"
+                        />
+                    <Button
+                        Grid.Row="0"
+                        CornerRadius="20"
+                        Grid.Column="2"
+                        TextColor="White"
+                        BackgroundColor="#0099ff"
+                        Command="{Binding btnNextCommand}"
+                        Text="NEXT"
+                        />
+                </Grid>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

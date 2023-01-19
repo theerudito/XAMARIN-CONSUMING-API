@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="API.View.Page_My_API">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Frame
+                    Padding="0,-8,-20,-10"
+                    BackgroundColor="Silver"
+                    Margin="10"
+                    CornerRadius="10">
+                    <Entry
+                        TextColor="Black"
+                        PlaceholderColor="Black"
+                        HeightRequest="50"
+                        Text="{Binding name}"
+                        Placeholder="name"
+                        />
+                </Frame>
+                <Frame
+                    Padding="0,-8,-20,-10"
+                    BackgroundColor="Silver"
+                    Margin="10"
+                    CornerRadius="10">
+                    <Entry
+                        TextColor="Black"
+                        PlaceholderColor="Black"
+                        HeightRequest="50"
+                        Text="{Binding email}"
+                        Placeholder="email"/>
+                </Frame>
+
+                <Frame
+                    Padding="0,-8,-20,-10"
+                    BackgroundColor="Silver"
+                    Margin="10"
+                    CornerRadius="10">
+                    <Entry
+                        TextColor="Black"
+                        PlaceholderColor="Black"
+                        HeightRequest="50"
+                        Text="{Binding phone}"
+                        Placeholder="phone"/>
+                </Frame>
+
+                <Frame
+                    Padding="0,-8,-20,-10"
+                    BackgroundColor="Silver"
+                    Margin="10"
+                    CornerRadius="10">
+                    <Entry
+                        TextColor="Black"
+                        PlaceholderColor="Black"
+                        HeightRequest="50"
+                        Text="{Binding message}"
+                        Placeholder="message"/>
+                </Frame>
+                <Button
+                    Margin="20,0,20,0"
+                    CornerRadius="20"
+                    TextColor="White"
+                    BackgroundColor="#0099ff"
+                    Text="{Binding changeText}"
+                    Command="{Binding createContactCommand}"
+                    />
+            </StackLayout>
+            <Label  Text="{Binding Label}"/>
+
+            <StackLayout>
+                <CollectionView
+                    x:Name="contacts"
+                    ItemsSource="{Binding Contacts}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Frame
+                                    CornerRadius="10"
+                                    Margin="10"
+                                    BackgroundColor="Black"
+                                    >
+                                    <StackLayout >
+                                        <Image Source="{Binding pic}"
+                                               />
+                                        <Label
+                                            MaxLines="1"
+                                            Text="{Binding name}"
+                                            TextColor="White"/>
+                                        <Label
+                                            MaxLines="1"
+                                            Text="{Binding email}"
+                                            TextColor="White"/>
+                                        <Label
+                                            MaxLines="1"
+                                            Text="{Binding phone}"
+                                            TextColor="White"/>
+                                        <Label
+                                            MaxLines="1"
+                                            Text="{Binding message}"
+                                            TextColor="White"/>
+                                        <Grid
+                                            Margin="0"
+                                            RowDefinitions="*"
+                                            ColumnDefinitions="*,30,30,*">
+                                            <ImageButton
+                                                Source="update"
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={x:Reference contacts},
+                                                Path=BindingContext.getOneContactCommand}"
+                                                CommandParameter="{Binding}"
+                                                />
+                                            <ImageButton
+                                                Source="delete_light"
+                                                Grid.Row="0"
+                                                Grid.Column="3"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={x:Reference contacts},
+                                                Path=BindingContext.deleteContactCommand}"
+                                                CommandParameter="{Binding}"
+                                                />
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            Span="2"
+                            Orientation="Vertical"
+                            />
+                    </CollectionView.ItemsLayout>
+                </CollectionView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
