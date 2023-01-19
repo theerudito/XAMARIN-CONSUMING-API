@@ -1,5 +1,4 @@
-﻿
-using API.Models;
+﻿using API.Models;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Net;
@@ -29,7 +28,7 @@ namespace API.ViewModels
         private string _pic;
         private string _createdAt;
         private string _updatedAt;
-        private string _Label;
+        private string _Id;
         #endregion
 
         #region OBJECS
@@ -38,10 +37,10 @@ namespace API.ViewModels
             get { return _contacts; }
             set { _contacts = value; OnPropertyChanged(); }
         }
-        public string Label
+        public string Id
         {
-            get { return _Label; }
-            set { SetValue(ref _Label, value); }
+            get { return _Id; }
+            set { SetValue(ref _Id, value); }
         }
         public string changeText
         {
@@ -143,7 +142,7 @@ namespace API.ViewModels
             email = getData.email;
             phone = getData.phone;
             message = getData.message;
-            Label = getData._id;
+            Id = getData._id;
         }
         public async Task getContacts()
         {
@@ -180,7 +179,7 @@ namespace API.ViewModels
 
             var json = JsonConvert.SerializeObject(myContact);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            var putData = await clientHTTP.PutAsync($"{URL}/{data._id}", contentJson);
+            var putData = await clientHTTP.PutAsync($"{URL}/{Id}", contentJson);
 
             if (putData.IsSuccessStatusCode)
             {
@@ -207,34 +206,3 @@ namespace API.ViewModels
 }
 
 
-//MyAPI_Model c = new MyAPI_Model();
-
-//c.name = name;
-//c.email = email;
-//c.phone = phone;
-//c.message = message;
-
-
-////myContact.name = name;
-////myContact.email = email;
-////myContact.phone = phone;
-////myContact.message = message;
-
-//var json = JsonConvert.SerializeObject(c);
-//var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-//var putData = await clientHTTP.PutAsync(URL + data._id, contentJson);
-//if (putData.IsSuccessStatusCode)
-//{
-//    name = "";
-//    email = "";
-//    phone = 0;
-//    message = "";
-//    await DisplayAlert("info", "actualizado con exito", "ok");
-//    changeText = "SAVE CONTACTS";
-//    EditingContact = false;
-//    getContacts();
-//}
-//else
-//{
-//    await DisplayAlert("error", "no se puedo actualizar", "ok");
-//}

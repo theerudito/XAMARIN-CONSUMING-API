@@ -8,7 +8,7 @@
                 <Label
                     Margin="0,5,0,0"
                     TextColor="Black"
-                    Text="{Binding Label}"
+                    Text="{Binding Id}"
                     HorizontalOptions="Center"
                     />
                 <Grid
