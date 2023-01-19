@@ -5,57 +5,96 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
-                <Frame
-                    Padding="0,-8,-20,-10"
-                    BackgroundColor="Silver"
-                    Margin="10"
-                    CornerRadius="10">
-                    <Entry
-                        TextColor="Black"
-                        PlaceholderColor="Black"
-                        HeightRequest="50"
-                        Text="{Binding name}"
-                        Placeholder="name"
-                        />
-                </Frame>
-                <Frame
-                    Padding="0,-8,-20,-10"
-                    BackgroundColor="Silver"
-                    Margin="10"
-                    CornerRadius="10">
-                    <Entry
-                        TextColor="Black"
-                        PlaceholderColor="Black"
-                        HeightRequest="50"
-                        Text="{Binding email}"
-                        Placeholder="email"/>
-                </Frame>
-
-                <Frame
-                    Padding="0,-8,-20,-10"
-                    BackgroundColor="Silver"
-                    Margin="10"
-                    CornerRadius="10">
-                    <Entry
-                        TextColor="Black"
-                        PlaceholderColor="Black"
-                        HeightRequest="50"
-                        Text="{Binding phone}"
-                        Placeholder="phone"/>
-                </Frame>
-
-                <Frame
-                    Padding="0,-8,-20,-10"
-                    BackgroundColor="Silver"
-                    Margin="10"
-                    CornerRadius="10">
-                    <Entry
-                        TextColor="Black"
-                        PlaceholderColor="Black"
-                        HeightRequest="50"
-                        Text="{Binding message}"
-                        Placeholder="message"/>
-                </Frame>
+                <Label
+                    Margin="0,5,0,0"
+                    TextColor="Black"
+                    Text="{Binding Label}"
+                    HorizontalOptions="Center"
+                    />
+                <Grid
+                    RowDefinitions="*"
+                    ColumnDefinitions="70,*">
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalOptions="Center"
+                        Text="Name: "
+                        Grid.Column="0"/>
+                    <Frame
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Padding="0,-8,-20,-10"
+                        BackgroundColor="Silver"
+                        Margin="10"
+                        CornerRadius="10">
+                        <Entry
+                            TextColor="Black"
+                            PlaceholderColor="Black"
+                            HeightRequest="100"
+                            Text="{Binding name}"
+                            Placeholder="name"
+                            />
+                    </Frame>
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalOptions="Center"
+                        Text="Email: "
+                        Grid.Row="1"
+                        Grid.Column="0"/>
+                    <Frame
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Padding="0,-8,-20,-10"
+                        BackgroundColor="Silver"
+                        Margin="10"
+                        CornerRadius="10">
+                        <Entry
+                            TextColor="Black"
+                            PlaceholderColor="Black"
+                            HeightRequest="50"
+                            Text="{Binding email}"
+                            Placeholder="email"/>
+                    </Frame>
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalOptions="Center"
+                        Text="Phone: "
+                        Grid.Row="2"
+                        Grid.Column="0"/>
+                    <Frame
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Padding="0,-8,-20,-10"
+                        BackgroundColor="Silver"
+                        Margin="10"
+                        CornerRadius="10">
+                        <Entry
+                            TextColor="Black"
+                            PlaceholderColor="Black"
+                            HeightRequest="50"
+                            Text="{Binding phone}"
+                            Placeholder="phone"/>
+                    </Frame>
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalOptions="Center"
+                        Text="Message: "
+                        Grid.Row="3"
+                        Grid.Column="0"/>
+                    <Frame
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Padding="0,-8,-20,-10"
+                        BackgroundColor="Silver"
+                        Margin="10"
+                        CornerRadius="10">
+                        <Entry
+                            TextColor="Black"
+                            PlaceholderColor="Black"
+                            HeightRequest="50"
+                            Text="{Binding message}"
+                            Placeholder="message"/>
+                    </Frame>
+                </Grid>
                 <Button
                     Margin="20,0,20,0"
                     CornerRadius="20"
@@ -65,8 +104,6 @@
                     Command="{Binding createContactCommand}"
                     />
             </StackLayout>
-            <Label  Text="{Binding Label}"/>
-
             <StackLayout>
                 <CollectionView
                     x:Name="contacts"

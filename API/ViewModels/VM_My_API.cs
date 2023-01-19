@@ -173,37 +173,32 @@ namespace API.ViewModels
         }
         public async Task updateContact()
         {
-            MyAPI_Model c = new MyAPI_Model();
+            myContact.pic = $"https://avatars.dicebear.com/api/micah/{name}.svg";
+            myContact.name = name;
+            myContact.email = email;
+            myContact.phone = phone;
+            myContact.message = message;
 
-            c.name = name;
-            c.email = email;
-            c.phone = phone;
-            c.message = message;
-
-
-            //myContact.name = name;
-            //myContact.email = email;
-            //myContact.phone = phone;
-            //myContact.message = message;
-
-            var json = JsonConvert.SerializeObject(c);
+            var json = JsonConvert.SerializeObject(myContact);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            var putData = await clientHTTP.PutAsync(URL + data._id, contentJson);
-            if (putData.IsSuccessStatusCode)
+            var putData = await clientHTTP.PutAsync($"{URL}/{data._id}", contentJson);
+
+            if (putData.StatusCode == HttpStatusCode.OK)
             {
                 name = "";
                 email = "";
                 phone = 0;
                 message = "";
-                await DisplayAlert("info", "actualizado con exito", "ok");
                 changeText = "SAVE CONTACTS";
                 EditingContact = false;
+                await DisplayAlert("info", "actualizado con exito", "ok");
                 getContacts();
             }
             else
             {
                 await DisplayAlert("error", "no se puedo actualizar", "ok");
             }
+
         }
         #endregion
 
@@ -214,3 +209,36 @@ namespace API.ViewModels
         #endregion
     }
 }
+
+
+//MyAPI_Model c = new MyAPI_Model();
+
+//c.name = name;
+//c.email = email;
+//c.phone = phone;
+//c.message = message;
+
+
+////myContact.name = name;
+////myContact.email = email;
+////myContact.phone = phone;
+////myContact.message = message;
+
+//var json = JsonConvert.SerializeObject(c);
+//var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+//var putData = await clientHTTP.PutAsync(URL + data._id, contentJson);
+//if (putData.IsSuccessStatusCode)
+//{
+//    name = "";
+//    email = "";
+//    phone = 0;
+//    message = "";
+//    await DisplayAlert("info", "actualizado con exito", "ok");
+//    changeText = "SAVE CONTACTS";
+//    EditingContact = false;
+//    getContacts();
+//}
+//else
+//{
+//    await DisplayAlert("error", "no se puedo actualizar", "ok");
+//}
