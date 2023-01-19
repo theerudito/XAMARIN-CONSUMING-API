@@ -71,6 +71,7 @@
                             TextColor="Black"
                             PlaceholderColor="Black"
                             HeightRequest="50"
+                            Keyboard="Numeric"
                             Text="{Binding phone}"
                             Placeholder="phone"/>
                     </Frame>

@@ -17,7 +17,7 @@ namespace API.ViewModels
         HttpClient clientHTTP = new HttpClient();
 
         #region VARIABLES
-        private string URL = "https://backend-react-mypage.up.railway.app/api/contactos";
+        private string URL = "YOUR URL";
         private ObservableCollection<MyAPI_Model> _contacts;
         private MyAPI_Model data { get; set; }
         private bool EditingContact = true;
@@ -126,12 +126,12 @@ namespace API.ViewModels
                 email = "";
                 phone = 0;
                 message = "";
-                await DisplayAlert("info", "creado con exito", "ok");
+                await DisplayAlert("info", "the contact was created", "ok");
                 getContacts();
             }
             else
             {
-                await DisplayAlert("error", "no se puedo duardar", "ok");
+                await DisplayAlert("error", "the contact was not created", "ok");
             }
         }
         public async Task getOneContact(MyAPI_Model getData)
@@ -155,7 +155,7 @@ namespace API.ViewModels
             }
             else
             {
-                await DisplayAlert("info", "Sin DATA", "ok");
+                await DisplayAlert("info", "don't have contacts", "ok");
             }
         }
         public async Task deleteContact(MyAPI_Model deleteContact)
@@ -173,7 +173,6 @@ namespace API.ViewModels
         }
         public async Task updateContact()
         {
-            myContact.pic = $"https://avatars.dicebear.com/api/micah/{name}.svg";
             myContact.name = name;
             myContact.email = email;
             myContact.phone = phone;
@@ -183,22 +182,19 @@ namespace API.ViewModels
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             var putData = await clientHTTP.PutAsync($"{URL}/{data._id}", contentJson);
 
-            if (putData.StatusCode == HttpStatusCode.OK)
+            if (putData.IsSuccessStatusCode)
             {
                 name = "";
                 email = "";
                 phone = 0;
                 message = "";
-                changeText = "SAVE CONTACTS";
-                EditingContact = false;
-                await DisplayAlert("info", "actualizado con exito", "ok");
+                await DisplayAlert("info", "the contact was updated", "ok");
                 getContacts();
             }
             else
             {
-                await DisplayAlert("error", "no se puedo actualizar", "ok");
+                await DisplayAlert("error", "the contact was not updated", "ok");
             }
-
         }
         #endregion
 
