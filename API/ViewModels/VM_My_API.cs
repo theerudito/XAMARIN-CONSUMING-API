@@ -190,6 +190,7 @@ namespace API.ViewModels
                 email = "";
                 phone = 0;
                 message = "";
+                Id = "";
                 changeText = "SAVE CONTACTS";
                 EditingContact = false;
                 await DisplayAlert("info", "the contact was updated", "ok");
