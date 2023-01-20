@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
@@ -16,7 +17,7 @@ namespace API.ViewModels
         HttpClient clientHTTP = new HttpClient();
 
         #region VARIABLES
-        private string URL = "YOUR URL";
+        private string URL = "YOU URL";
         private ObservableCollection<MyAPI_Model> _contacts;
         private MyAPI_Model data { get; set; }
         private bool EditingContact = true;
@@ -163,21 +164,23 @@ namespace API.ViewModels
             if (deleteData.IsSuccessStatusCode)
             {
                 getContacts();
-                await DisplayAlert("infor", "Eliminado con exito", "ok");
+                await DisplayAlert("infor", "the contact was eliminated", "ok");
             }
             else
             {
-                await DisplayAlert("error", "no se puedo eliminar", "ok");
+                await DisplayAlert("error", "the contact was not eliminated", "ok");
             }
         }
         public async Task updateContact()
         {
+            myContact.pic = $"https://avatars.dicebear.com/api/micah/{name}.svg";
             myContact.name = name;
             myContact.email = email;
             myContact.phone = phone;
             myContact.message = message;
 
             var json = JsonConvert.SerializeObject(myContact);
+            // haceptar mayusculas y minusculas
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             var putData = await clientHTTP.PutAsync($"{URL}/{Id}", contentJson);
 
@@ -187,6 +190,8 @@ namespace API.ViewModels
                 email = "";
                 phone = 0;
                 message = "";
+                changeText = "SAVE CONTACTS";
+                EditingContact = false;
                 await DisplayAlert("info", "the contact was updated", "ok");
                 getContacts();
             }

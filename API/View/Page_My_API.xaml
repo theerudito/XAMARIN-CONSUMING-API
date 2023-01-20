@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="API.View.Page_My_API">
     <ContentPage.Content>
         <StackLayout>
@@ -11,6 +14,11 @@
                     Text="{Binding Id}"
                     HorizontalOptions="Center"
                     />
+
+                <!--xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"-->
+
                 <Grid
                     RowDefinitions="*"
                     ColumnDefinitions="70,*">
@@ -27,8 +35,6 @@
                         Margin="10"
                         CornerRadius="10">
                         <Entry
-                            TextColor="Black"
-                            PlaceholderColor="Black"
                             HeightRequest="100"
                             Text="{Binding name}"
                             Placeholder="name"
@@ -48,8 +54,6 @@
                         Margin="10"
                         CornerRadius="10">
                         <Entry
-                            TextColor="Black"
-                            PlaceholderColor="Black"
                             HeightRequest="50"
                             Text="{Binding email}"
                             Placeholder="email"/>
@@ -68,8 +72,6 @@
                         Margin="10"
                         CornerRadius="10">
                         <Entry
-                            TextColor="Black"
-                            PlaceholderColor="Black"
                             HeightRequest="50"
                             Keyboard="Numeric"
                             Text="{Binding phone}"
@@ -89,8 +91,6 @@
                         Margin="10"
                         CornerRadius="10">
                         <Entry
-                            TextColor="Black"
-                            PlaceholderColor="Black"
                             HeightRequest="50"
                             Text="{Binding message}"
                             Placeholder="message"/>
@@ -117,9 +117,9 @@
                                     Margin="10"
                                     BackgroundColor="Black"
                                     >
-                                    <StackLayout >
-                                        <Image Source="{Binding pic}"
-                                               />
+                                    <StackLayout>
+                                        <ffimageloading:CachedImage Source="{Binding pic}" Background="red"/>
+
                                         <Label
                                             MaxLines="1"
                                             Text="{Binding name}"
