@@ -17,7 +17,7 @@ namespace API.ViewModels
         HttpClient clientHTTP = new HttpClient();
 
         #region VARIABLES
-        private string URL = "https://mybackend.somee.com";
+        private string URL = "";
         private ObservableCollection<MyAPI_Model> _contacts;
         private MyAPI_Model data { get; set; }
         private bool EditingContact = true;
