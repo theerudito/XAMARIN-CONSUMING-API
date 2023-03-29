@@ -17,7 +17,7 @@ namespace API.ViewModels
         HttpClient clientHTTP = new HttpClient();
 
         #region VARIABLES
-        private string URL = "YOU URL";
+        private string URL = "https://mybackend.somee.com";
         private ObservableCollection<MyAPI_Model> _contacts;
         private MyAPI_Model data { get; set; }
         private bool EditingContact = true;
@@ -110,29 +110,35 @@ namespace API.ViewModels
         }
         public async Task createContact()
         {
-            myContact.pic = $"https://avatars.dicebear.com/api/micah/{name}.svg";
+            myContact.pic = $"https://api.dicebear.com/5.x/micah/svg?seed={name}";
+
             myContact.name = name;
             myContact.email = email;
             myContact.phone = phone;
             myContact.message = message;
 
+            // hacer una peticion post a la api
             var json = JsonConvert.SerializeObject(myContact);
-            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            var postData = await clientHTTP.PostAsync(URL, contentJson);
+            // haceptar mayusculas y minusculas
 
-            if (postData.StatusCode == HttpStatusCode.OK)
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var postData = await clientHTTP.PostAsync($"{URL}/Clients", contentJson);
+
+            if (postData.IsSuccessStatusCode)
             {
+                await DisplayAlert("info", "the contact was created", "ok");
                 name = "";
                 email = "";
                 phone = 0;
                 message = "";
-                await DisplayAlert("info", "the contact was created", "ok");
                 getContacts();
             }
             else
             {
                 await DisplayAlert("error", "the contact was not created", "ok");
             }
+
         }
         public async Task getOneContact(MyAPI_Model getData)
         {
@@ -143,11 +149,11 @@ namespace API.ViewModels
             email = getData.email;
             phone = getData.phone;
             message = getData.message;
-            Id = getData._id;
+            Id = getData.id;
         }
         public async Task getContacts()
         {
-            var response = await clientHTTP.GetAsync(URL);
+            var response = await clientHTTP.GetAsync($"{URL}/Clients");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync();
@@ -160,7 +166,7 @@ namespace API.ViewModels
         }
         public async Task deleteContact(MyAPI_Model deleteContact)
         {
-            var deleteData = await clientHTTP.DeleteAsync($"{URL}/{deleteContact._id}");
+            var deleteData = await clientHTTP.DeleteAsync($"{URL}/Clients/{deleteContact.id}");
             if (deleteData.IsSuccessStatusCode)
             {
                 getContacts();
@@ -173,7 +179,7 @@ namespace API.ViewModels
         }
         public async Task updateContact()
         {
-            myContact.pic = $"https://avatars.dicebear.com/api/micah/{name}.svg";
+            myContact.pic = $"https://api.dicebear.com/5.x/micah/svg?seed={name}";
             myContact.name = name;
             myContact.email = email;
             myContact.phone = phone;
@@ -182,23 +188,25 @@ namespace API.ViewModels
             var json = JsonConvert.SerializeObject(myContact);
             // haceptar mayusculas y minusculas
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            var putData = await clientHTTP.PutAsync($"{URL}/{Id}", contentJson);
+            var putData = await clientHTTP.PutAsync($"{URL}/Clients/{Id}", contentJson);
 
             if (putData.IsSuccessStatusCode)
             {
+                await DisplayAlert("info", "the contact was updated", "ok");
                 name = "";
                 email = "";
                 phone = 0;
                 message = "";
-                changeText = "SAVE CONTACTS";
-                EditingContact = false;
-                await DisplayAlert("info", "the contact was updated", "ok");
                 getContacts();
+                EditingContact = false;
+                changeText = "SAVE CONTACTS";
             }
             else
             {
                 await DisplayAlert("error", "the contact was not updated", "ok");
             }
+
+           
         }
         #endregion
 
