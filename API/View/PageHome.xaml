@@ -1,34 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="API.View.PageHome">
+<ContentPage
+    x:Class="API.View.PageHome"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
-        <StackLayout
-            VerticalOptions="Center">
+        <StackLayout VerticalOptions="Center">
             <Button
-                Text="JPH"
                 Margin="20,0,20,0"
-                CornerRadius="20"
-                TextColor="White"
                 BackgroundColor="#0099ff"
                 Command="{Binding btnGoJPHCommand}"
-                />
-            <Button
-                Text="REQRES"
-                Margin="20,0,20,0"
                 CornerRadius="20"
-                TextColor="White"
+                Text="JPH"
+                TextColor="White" />
+            <Button
+                Margin="20,0,20,0"
                 BackgroundColor="#0099ff"
                 Command="{Binding btnGoReqresCommand}"
-                />
-            <Button
-                Text="MY API"
-                Margin="20,0,20,0"
                 CornerRadius="20"
-                TextColor="White"
+                Text="REQRES"
+                TextColor="White" />
+            <Button
+                Margin="20,0,20,0"
                 BackgroundColor="#0099ff"
                 Command="{Binding btnGoMyAPICommand}"
-                />
+                CornerRadius="20"
+                Text="MY API"
+                TextColor="White" />
+
+            <Button
+                Margin="20,0,20,0"
+                BackgroundColor="#0099ff"
+                Command="{Binding btnGoSupabaseCommand}"
+                CornerRadius="20"
+                Text="Supabase"
+                TextColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="API.View.PageSupabase"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Entry
+                Margin="10"
+                Placeholder="Name"
+                Text="{Binding Name}" />
+            <Entry
+                Margin="10"
+                Placeholder="Initial Value"
+                Text="{Binding Saldo_Initia}" />
+            <Entry
+                Margin="10"
+                Placeholder="Description"
+                Text="{Binding Description}" />
+
+            <Button
+                Margin="10"
+                Command="{Binding btnAdd}"
+                Text="ADD" />
+
+            <StackLayout />
+
+            <StackLayout />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,6 +1,6 @@
-﻿using API.Models;
+﻿using API.Data;
+using API.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
@@ -17,7 +17,6 @@ namespace API.ViewModels
         HttpClient clientHTTP = new HttpClient();
 
         #region VARIABLES
-        private string URL = "https://mybackend.somee.com";
         private ObservableCollection<MyAPI_Model> _contacts;
         private MyAPI_Model data { get; set; }
         private bool EditingContact = true;
@@ -123,7 +122,7 @@ namespace API.ViewModels
 
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var postData = await clientHTTP.PostAsync($"{URL}/Clients", contentJson);
+            var postData = await clientHTTP.PostAsync($"{FetchData.urlMyBackend}/Clients", contentJson);
 
             if (postData.IsSuccessStatusCode)
             {
@@ -153,7 +152,7 @@ namespace API.ViewModels
         }
         public async Task getContacts()
         {
-            var response = await clientHTTP.GetAsync($"{URL}/Clients");
+            var response = await clientHTTP.GetAsync($"{FetchData.urlMyBackend}/Clients");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync();
@@ -166,7 +165,7 @@ namespace API.ViewModels
         }
         public async Task deleteContact(MyAPI_Model deleteContact)
         {
-            var deleteData = await clientHTTP.DeleteAsync($"{URL}/Clients/{deleteContact.id}");
+            var deleteData = await clientHTTP.DeleteAsync($"{FetchData.urlMyBackend}/Clients/{deleteContact.id}");
             if (deleteData.IsSuccessStatusCode)
             {
                 getContacts();
@@ -188,7 +187,7 @@ namespace API.ViewModels
             var json = JsonConvert.SerializeObject(myContact);
             // haceptar mayusculas y minusculas
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            var putData = await clientHTTP.PutAsync($"{URL}/Clients/{Id}", contentJson);
+            var putData = await clientHTTP.PutAsync($"{FetchData.urlMyBackend}/Clients/{Id}", contentJson);
 
             if (putData.IsSuccessStatusCode)
             {
@@ -197,13 +196,11 @@ namespace API.ViewModels
                 email = "";
                 phone = 0;
                 message = "";
-<<<<<<< HEAD
-=======
                 Id = "";
                 changeText = "SAVE CONTACTS";
                 EditingContact = false;
                 await DisplayAlert("info", "the contact was updated", "ok");
->>>>>>> dfad841a9d73bff9e7a6149860344fdd34ddb384
+
                 getContacts();
                 EditingContact = false;
                 changeText = "SAVE CONTACTS";
@@ -213,7 +210,7 @@ namespace API.ViewModels
                 await DisplayAlert("error", "the contact was not updated", "ok");
             }
 
-           
+
         }
         #endregion
 

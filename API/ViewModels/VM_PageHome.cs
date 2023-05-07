@@ -12,18 +12,27 @@ namespace API.ViewModels
         }
 
         #region COMMAND
+
         public ICommand btnGoJPHCommand => new Command(async () =>
         {
             await Navigation.PushAsync(new JPH_Page());
         });
+
         public ICommand btnGoReqresCommand => new Command(async () =>
         {
             await Navigation.PushAsync(new Regres_Page());
         });
+
         public ICommand btnGoMyAPICommand => new Command(async () =>
         {
             await Navigation.PushAsync(new Page_My_API());
         });
-        #endregion
+
+        public ICommand btnGoSupabaseCommand => new Command(async () =>
+        {
+            await Navigation.PushAsync(new PageSupabase());
+        });
+
+        #endregion COMMAND
     }
 }

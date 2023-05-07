@@ -126,6 +126,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
     </PackageReference>
+    <PackageReference Include="supabase-csharp">
+      <Version>0.9.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading">
       <Version>2.4.11.982</Version>
     </PackageReference>
