@@ -8,14 +8,17 @@
 
             <Entry
                 Margin="10"
+                Keyboard="Text"
                 Placeholder="Name"
                 Text="{Binding Name}" />
             <Entry
                 Margin="10"
+                Keyboard="Numeric"
                 Placeholder="Initial Value"
-                Text="{Binding Saldo_Initia}" />
+                Text="{Binding Saldo_Initial}" />
             <Entry
                 Margin="10"
+                Keyboard="Text"
                 Placeholder="Description"
                 Text="{Binding Description}" />
 
@@ -25,7 +28,56 @@
                 Text="ADD" />
 
             <StackLayout />
+            <CollectionView x:Name="TuDeuda" ItemsSource="{Binding ListClient}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame
+                                Margin="10"
+                                BackgroundColor="Black"
+                                CornerRadius="10">
+                                <StackLayout>
 
+                                    <Label
+                                        MaxLines="1"
+                                        Text="{Binding Name}"
+                                        TextColor="White" />
+                                    <Label
+                                        MaxLines="1"
+                                        Text="{Binding Description}"
+                                        TextColor="White" />
+                                    <Label
+                                        MaxLines="1"
+                                        Text="{Binding Saldo_Inicial}"
+                                        TextColor="White" />
+                                    <Grid
+                                        Margin="0"
+                                        ColumnDefinitions="*,30,30,*"
+                                        RowDefinitions="*">
+                                        <ImageButton
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding Source={x:Reference TuDeuda}, Path=BindingContext.getOneClientCommand}"
+                                            CommandParameter="{Binding}"
+                                            Source="update" />
+                                        <ImageButton
+                                            Grid.Row="0"
+                                            Grid.Column="3"
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding Source={x:Reference TuDeuda}, Path=BindingContext.deleteClientCommand}"
+                                            CommandParameter="{Binding}"
+                                            Source="delete_light" />
+                                    </Grid>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
             <StackLayout />
         </StackLayout>
     </ContentPage.Content>

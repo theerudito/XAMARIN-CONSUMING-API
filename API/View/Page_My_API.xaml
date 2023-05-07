@@ -1,163 +1,144 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             x:Class="API.View.Page_My_API">
+<ContentPage
+    x:Class="API.View.Page_My_API"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
                 <Label
                     Margin="0,5,0,0"
-                    TextColor="Black"
-                    Text="{Binding Id}"
                     HorizontalOptions="Center"
-                    />
+                    Text="{Binding Id}"
+                    TextColor="Black" />
 
-                <!--xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-                xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"-->
-
-                <Grid
-                    RowDefinitions="*"
-                    ColumnDefinitions="70,*">
+                <Grid ColumnDefinitions="70,*" RowDefinitions="*">
                     <Label
+                        Grid.Column="0"
                         Margin="10,0,0,0"
-                        VerticalOptions="Center"
                         Text="Name: "
-                        Grid.Column="0"/>
+                        VerticalOptions="Center" />
                     <Frame
-                        Grid.Column="1"
                         Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="10"
                         Padding="0,-8,-20,-10"
                         BackgroundColor="Silver"
-                        Margin="10"
                         CornerRadius="10">
                         <Entry
                             HeightRequest="100"
-                            Text="{Binding name}"
                             Placeholder="name"
-                            />
+                            Text="{Binding name}" />
                     </Frame>
                     <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
                         Margin="10,0,0,0"
-                        VerticalOptions="Center"
                         Text="Email: "
-                        Grid.Row="1"
-                        Grid.Column="0"/>
+                        VerticalOptions="Center" />
                     <Frame
-                        Grid.Column="1"
                         Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="10"
                         Padding="0,-8,-20,-10"
                         BackgroundColor="Silver"
-                        Margin="10"
                         CornerRadius="10">
                         <Entry
                             HeightRequest="50"
-                            Text="{Binding email}"
-                            Placeholder="email"/>
+                            Placeholder="email"
+                            Text="{Binding email}" />
                     </Frame>
                     <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
                         Margin="10,0,0,0"
-                        VerticalOptions="Center"
                         Text="Phone: "
-                        Grid.Row="2"
-                        Grid.Column="0"/>
+                        VerticalOptions="Center" />
                     <Frame
-                        Grid.Column="1"
                         Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="10"
                         Padding="0,-8,-20,-10"
                         BackgroundColor="Silver"
-                        Margin="10"
                         CornerRadius="10">
                         <Entry
                             HeightRequest="50"
                             Keyboard="Numeric"
-                            Text="{Binding phone}"
-                            Placeholder="phone"/>
+                            Placeholder="phone"
+                            Text="{Binding phone}" />
                     </Frame>
                     <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
                         Margin="10,0,0,0"
-                        VerticalOptions="Center"
                         Text="Message: "
-                        Grid.Row="3"
-                        Grid.Column="0"/>
+                        VerticalOptions="Center" />
                     <Frame
-                        Grid.Column="1"
                         Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="10"
                         Padding="0,-8,-20,-10"
                         BackgroundColor="Silver"
-                        Margin="10"
                         CornerRadius="10">
                         <Entry
                             HeightRequest="50"
-                            Text="{Binding message}"
-                            Placeholder="message"/>
+                            Placeholder="message"
+                            Text="{Binding message}" />
                     </Frame>
                 </Grid>
                 <Button
                     Margin="20,0,20,0"
-                    CornerRadius="20"
-                    TextColor="White"
                     BackgroundColor="#0099ff"
-                    Text="{Binding changeText}"
                     Command="{Binding createContactCommand}"
-                    />
+                    CornerRadius="20"
+                    Text="{Binding changeText}"
+                    TextColor="White" />
             </StackLayout>
             <StackLayout>
-                <CollectionView
-                    x:Name="contacts"
-                    ItemsSource="{Binding Contacts}">
+                <CollectionView x:Name="contacts" ItemsSource="{Binding Contacts}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Frame
-                                    CornerRadius="10"
                                     Margin="10"
                                     BackgroundColor="Black"
-                                    >
+                                    CornerRadius="10">
                                     <StackLayout>
-                                        <ffimageloading:CachedImage Source="{Binding pic}" Background="red"/>
 
                                         <Label
                                             MaxLines="1"
                                             Text="{Binding name}"
-                                            TextColor="White"/>
+                                            TextColor="White" />
                                         <Label
                                             MaxLines="1"
                                             Text="{Binding email}"
-                                            TextColor="White"/>
+                                            TextColor="White" />
                                         <Label
                                             MaxLines="1"
                                             Text="{Binding phone}"
-                                            TextColor="White"/>
+                                            TextColor="White" />
                                         <Label
                                             MaxLines="1"
                                             Text="{Binding message}"
-                                            TextColor="White"/>
+                                            TextColor="White" />
                                         <Grid
                                             Margin="0"
-                                            RowDefinitions="*"
-                                            ColumnDefinitions="*,30,30,*">
+                                            ColumnDefinitions="*,30,30,*"
+                                            RowDefinitions="*">
                                             <ImageButton
-                                                Source="update"
                                                 Grid.Row="0"
                                                 Grid.Column="0"
                                                 BackgroundColor="Transparent"
-                                                Command="{Binding Source={x:Reference contacts},
-                                                Path=BindingContext.getOneContactCommand}"
+                                                Command="{Binding Source={x:Reference contacts}, Path=BindingContext.getOneContactCommand}"
                                                 CommandParameter="{Binding}"
-                                                />
+                                                Source="update" />
                                             <ImageButton
-                                                Source="delete_light"
                                                 Grid.Row="0"
                                                 Grid.Column="3"
                                                 BackgroundColor="Transparent"
-                                                Command="{Binding Source={x:Reference contacts},
-                                                Path=BindingContext.deleteContactCommand}"
+                                                Command="{Binding Source={x:Reference contacts}, Path=BindingContext.deleteContactCommand}"
                                                 CommandParameter="{Binding}"
-                                                />
+                                                Source="delete_light" />
                                         </Grid>
                                     </StackLayout>
                                 </Frame>
@@ -165,10 +146,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout
-                            Span="2"
-                            Orientation="Vertical"
-                            />
+                        <GridItemsLayout Orientation="Vertical" Span="2" />
                     </CollectionView.ItemsLayout>
                 </CollectionView>
             </StackLayout>

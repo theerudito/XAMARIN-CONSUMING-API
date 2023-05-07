@@ -12,6 +12,8 @@ namespace API.Models
         [Column("Name")]
         public string Name { get; set; }
 
+        public string ClientId { get; set; }
+
         [Column("CI")]
         public string CI { get; set; }
 
