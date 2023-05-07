@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /API/ViewModels/VM_My_API.cs
+/API/Data/SupabaseData.cs
+/API/Data/FetchData.cs
