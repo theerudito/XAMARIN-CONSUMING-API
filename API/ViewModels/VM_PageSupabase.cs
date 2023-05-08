@@ -21,8 +21,6 @@ namespace API.ViewModels
             Navigation = navigation;
 
             Task.Run(async () => await Get());
-
-            //Get();
         }
 
         #region Properties
@@ -40,7 +38,7 @@ namespace API.ViewModels
         private string _dateNow = $"Fecha {_date} - Hour {_hour} ";
 
         private string _name;
-        private string _database = "Firebase";
+        private string _database = "Web";
         private string _description;
         private float _saldoInitial;
         private bool _status = true;
@@ -75,8 +73,12 @@ namespace API.ViewModels
 
         public string Database
         {
-            get => _database;
-            set => SetProperty(ref _database, value);
+            get { return _database; }
+            set
+            {
+                SetValue(ref _database, value);
+                OnPropertyChanged();
+            }
         }
 
         #endregion Objetos
