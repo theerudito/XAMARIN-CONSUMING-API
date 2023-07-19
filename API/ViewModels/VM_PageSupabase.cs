@@ -165,7 +165,7 @@ namespace API.ViewModels
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            await fetch.PostAsync(FetchData.urlWeb + "/api/ControllerClient", content);
+            await fetch.PostAsync(FetchData.urlBackendTuDeuda + "/api/ControllerClient", content);
 
             ResetValue();
 
@@ -254,7 +254,7 @@ namespace API.ViewModels
         {
             var fetch = new HttpClient();
 
-            var response = await fetch.GetAsync(FetchData.urlWeb + "/api/ControllerClient");
+            var response = await fetch.GetAsync(FetchData.urlBackendTuDeuda + "/api/ControllerClient");
 
             if (response.IsSuccessStatusCode)
             {

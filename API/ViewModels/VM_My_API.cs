@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using API.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
@@ -13,10 +14,11 @@ namespace API.ViewModels
 {
     public class VM_My_API : BaseViewModel
     {
-        MyAPI_Model myContact = new MyAPI_Model();
-        HttpClient clientHTTP = new HttpClient();
+        private MyAPI_Model myContact = new MyAPI_Model();
+        private HttpClient clientHTTP = new HttpClient();
 
         #region VARIABLES
+
         private ObservableCollection<MyAPI_Model> _contacts;
         private MyAPI_Model data { get; set; }
         private bool EditingContact = true;
@@ -29,63 +31,75 @@ namespace API.ViewModels
         private string _createdAt;
         private string _updatedAt;
         private string _Id;
-        #endregion
+
+        #endregion VARIABLES
 
         #region OBJECS
+
         public ObservableCollection<MyAPI_Model> Contacts
         {
             get { return _contacts; }
             set { _contacts = value; OnPropertyChanged(); }
         }
+
         public string Id
         {
             get { return _Id; }
             set { SetValue(ref _Id, value); }
         }
+
         public string changeText
         {
             get { return _changeText; }
             set { SetValue(ref _changeText, value); }
         }
+
         public string name
         {
             get { return _name; }
             set { SetValue(ref _name, value); }
         }
+
         public string email
         {
             get { return _email; }
             set { SetValue(ref _email, value); }
         }
+
         public int phone
         {
             get { return _phone; }
             set { SetValue(ref _phone, value); }
         }
+
         public string message
         {
             get { return _message; }
             set { SetValue(ref _message, value); }
         }
+
         public string pic
         {
             get { return _pic; }
             set { SetValue(ref _pic, value); }
         }
+
         public string createdAt
         {
             get { return _createdAt; }
             set { SetValue(ref _createdAt, value); }
         }
+
         public string updatedAt
         {
             get { return _updatedAt; }
             set { SetValue(ref _updatedAt, value); }
         }
 
-        #endregion
+        #endregion OBJECS
 
         #region CONSTRUCTOR
+
         public VM_My_API(INavigation navigation)
         {
             Navigation = navigation;
@@ -93,9 +107,11 @@ namespace API.ViewModels
             EditingContact = false;
             getContacts();
         }
-        #endregion
+
+        #endregion CONSTRUCTOR
 
         #region METHODS
+
         public async Task create_Or_Edit()
         {
             if (EditingContact == true)
@@ -107,6 +123,7 @@ namespace API.ViewModels
                 await createContact();
             }
         }
+
         public async Task createContact()
         {
             myContact.pic = $"https://api.dicebear.com/5.x/micah/svg?seed={name}";
@@ -137,8 +154,8 @@ namespace API.ViewModels
             {
                 await DisplayAlert("error", "the contact was not created", "ok");
             }
-
         }
+
         public async Task getOneContact(MyAPI_Model getData)
         {
             EditingContact = true;
@@ -150,25 +167,37 @@ namespace API.ViewModels
             message = getData.message;
             Id = getData.id;
         }
+
         public async Task getContacts()
         {
-            var response = await clientHTTP.GetAsync($"{FetchData.urlMyBackend}/Clients");
-            if (response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Contacts = JsonConvert.DeserializeObject<ObservableCollection<MyAPI_Model>>(json);
+                var response = await clientHTTP.GetAsync($"{FetchData.urlMyBackend}/Clients");
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var contactsArray = JsonConvert.DeserializeObject<MyAPI_Model[]>(json);
+                    Contacts = new ObservableCollection<MyAPI_Model>(contactsArray);
+                }
+                else
+                {
+                    await DisplayAlert("Info", "No se encontraron contactos", "OK");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("info", "don't have contacts", "ok");
+                // Manejo de la excepción, por ejemplo, mostrar un mensaje de error o realizar una acción adicional.
+                Console.WriteLine($"Error al realizar la solicitud HTTP: {ex.Message}");
             }
         }
+
         public async Task deleteContact(MyAPI_Model deleteContact)
         {
             var deleteData = await clientHTTP.DeleteAsync($"{FetchData.urlMyBackend}/Clients/{deleteContact.id}");
             if (deleteData.IsSuccessStatusCode)
             {
-                getContacts();
+                await getContacts();
                 await DisplayAlert("infor", "the contact was eliminated", "ok");
             }
             else
@@ -176,6 +205,7 @@ namespace API.ViewModels
                 await DisplayAlert("error", "the contact was not eliminated", "ok");
             }
         }
+
         public async Task updateContact()
         {
             myContact.pic = $"https://api.dicebear.com/5.x/micah/svg?seed={name}";
@@ -189,9 +219,8 @@ namespace API.ViewModels
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             var putData = await clientHTTP.PutAsync($"{FetchData.urlMyBackend}/Clients/{Id}", contentJson);
 
-            if (putData.IsSuccessStatusCode)
+            if (putData.StatusCode == HttpStatusCode.OK)
             {
-                await DisplayAlert("info", "the contact was updated", "ok");
                 name = "";
                 email = "";
                 phone = 0;
@@ -199,9 +228,10 @@ namespace API.ViewModels
                 Id = "";
                 changeText = "SAVE CONTACTS";
                 EditingContact = false;
+
                 await DisplayAlert("info", "the contact was updated", "ok");
 
-                getContacts();
+                await getContacts();
                 EditingContact = false;
                 changeText = "SAVE CONTACTS";
             }
@@ -209,17 +239,16 @@ namespace API.ViewModels
             {
                 await DisplayAlert("error", "the contact was not updated", "ok");
             }
-
-
         }
-        #endregion
+
+        #endregion METHODS
 
         #region COMMMANDS
+
         public ICommand createContactCommand => new Command(async () => await create_Or_Edit());
         public ICommand deleteContactCommand => new Command<MyAPI_Model>(async (c) => await deleteContact(c));
         public ICommand getOneContactCommand => new Command<MyAPI_Model>(async (c) => await getOneContact(c));
-        #endregion
+
+        #endregion COMMMANDS
     }
 }
-
-

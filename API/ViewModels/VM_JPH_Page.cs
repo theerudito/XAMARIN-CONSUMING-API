@@ -36,7 +36,9 @@ namespace API.ViewModels
         public async Task getData()
         {
             var client = new HttpClient();
+
             var response = await client.GetAsync("https://jsonplaceholder.typicode.com/users");
+            
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var content = await response.Content.ReadAsStringAsync();
